@@ -1,13 +1,90 @@
-# This file is a template, and might need editing before it works on your project.
-# Full project: https://gitlab.com/pages/plain-html
-pages:
-  stage: deploy
+image: registry.roqua.nl/roqua/rq
+
+include:
+  - project: 'roqua/operations/ci-deployer'
+    file: '/templates/gitlab-ci-deployment.yml'
+  - project: 'roqua/dependency_scanning'
+    file: '/templates/gitlab-ci-template.yml'
+
+before_script:
+  - docker login registry.roqua.nl -u "$REGISTRY_USERNAME" -p "$REGISTRY_PASSWORD"
+  - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+
+stages:
+  - build
+  - test
+  - push
+  - staging
+  - production
+
+variables:
+  RAILS_ENV: test
+
+.exceptions: &exceptions
+  except:
+    - /^release-staging-.*$/
+    - /^release-production-.*$/
+    - /^staging-.*$/
+    - /^production-.*$/
+
+.docker_template: &docker
+  <<: *exceptions
+  stage: test
+  retry: 1
+  before_script:
+    - docker login registry.roqua.nl -u "$REGISTRY_USERNAME" -p "$REGISTRY_PASSWORD"
+    - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+    - rq rewrite_docker_compose roqua --tag $CI_COMMIT_SHA
+    - docker-compose pull
+    - cat docker-compose.yml
+    - docker-compose -p roqua$CI_JOB_ID run test bundle exec rake db:create db:schema:load
+  after_script:
+    - docker-compose -p roqua$CI_JOB_ID down --volumes --remove-orphans
+
+build_container:
+  <<: *exceptions
+  stage: build
+  retry: 1
   script:
-    - mkdir .public
-    - cp -r public .public
-    - mv .public public
-  artifacts:
-    paths:
-      - public
-  only:
-    - master
+    - echo $CI_COMMIT_SHA > public/commit.txt
+    - rq rewrite_docker_compose roqua --tag $CI_COMMIT_SHA
+    - rq build --push
+
+test_development_seeds:
+  <<: *docker
+  variables:
+    RAILS_ENV: development
+  script:
+    - docker-compose -p roqua$CI_JOB_ID run test /app/ci_with_questionnaires.sh ${CI_JOB_TOKEN} bundle exec rake db:seed
+
+rspec:
+  <<: *docker
+  parallel: 4
+  script:
+    - docker-compose -p roqua$CI_JOB_ID run test /app/ci_with_questionnaires.sh ${CI_JOB_TOKEN} bundle exec rspec --tag ~jsoncaptures --tag ~noci `spec/split_test_suite.rb`
+
+misc_tests:
+  <<: *docker
+  script:
+    - docker-compose -p roqua$CI_JOB_ID run test yarn test
+    - docker-compose -p roqua$CI_JOB_ID run -w /app/rom_api test bundle exec appraisal bundle exec rspec
+    - docker-compose -p roqua$CI_JOB_ID run -w /app/vendor/gems/roqua-csv_export test bundle exec rspec
+    - docker-compose -p roqua$CI_JOB_ID run test /app/ci_with_questionnaires.sh ${CI_JOB_TOKEN} bundle exec rake sql_export_testset:validate_sqlite_using_app_db_method RAILS_ENV=test
+    # DEPENDS_ON=web rq test shell script/test_load_balancer_status
+
+push_container:
+  <<: *exceptions
+  stage: push
+  retry: 1
+  script:
+    - rq rewrite_docker_compose roqua --tag $CI_COMMIT_SHA
+    - docker-compose pull
+    - rq push
+
+staging:
+  environment:
+    url: https://demo.rom.roqua-staging.nl/
+
+production:
+  environment:
+    url: https://demo.rom.roqua.nl/
