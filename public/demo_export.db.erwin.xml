@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="Downloads/demo_export.db" schema="erwin" type="SQLite - 3.34.0">
+   <tables>
+      <table name="dossiers" numRows="404" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="10" id="0" name="id" nullable="false" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <child column="dossier_id" foreignKey="" implied="false" onDeleteCascade="true" table="protocol_subscriptions"/>
+            <child column="dossier_id" foreignKey="" implied="false" onDeleteCascade="true" table="respondents"/>
+            <child column="dossier_id" foreignKey="" implied="false" onDeleteCascade="true" table="responses"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="1" name="external_identifier" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="2" name="_sync" nullable="true" remarks="" size="2000000000" type="TIMESTAMP" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="dossiers_s_pk" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="measurements" numRows="238" remarks="" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="10" id="0" name="id" nullable="false" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <child column="measurement_id" foreignKey="" implied="false" onDeleteCascade="true" table="responses"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="1" name="protocol_id" nullable="false" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="true" table="protocols"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="2" name="name" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="3" name="description" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="4" name="label" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="5" name="active" nullable="false" remarks="" size="2000000000" type="BOOLEAN" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="6" name="_sync" nullable="false" remarks="" size="2000000000" type="TIMESTAMP" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="measurements_s_pk" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="non_responses" numRows="47320" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="10" id="0" name="id" nullable="false" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <child column="non_response_id" foreignKey="" implied="false" onDeleteCascade="true" table="responses"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="1" name="timestamp" nullable="true" remarks="" size="2000000000" type="TIMESTAMP" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="2" name="reason_group" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="3" name="reason_option" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="4" name="reason_code" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="5" name="reason_other" nullable="true" remarks="" size="2000000000" type="TEXT" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="6" name="_sync" nullable="true" remarks="" size="2000000000" type="TIMESTAMP" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="non_responses_s_pk" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="professionals" numRows="182" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="10" id="0" name="id" nullable="false" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <child column="started_by_id" foreignKey="" implied="false" onDeleteCascade="true" table="protocol_subscriptions"/>
+            <child column="entered_by_id" foreignKey="" implied="false" onDeleteCascade="true" table="responses"/>
+            <child column="requester_id" foreignKey="" implied="false" onDeleteCascade="true" table="responses"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="1" name="external_identifier" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="2" name="_sync" nullable="true" remarks="" size="2000000000" type="TIMESTAMP" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="professionals_s_pk" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="protocol_subscriptions" numRows="293" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="10" id="0" name="id" nullable="false" remarks="" size="2000000000" type="INTEGER" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="1" name="dossier_id" nullable="false" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="true" table="dossiers"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="2" name="protocol_id" nullable="false" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="true" table="protocols"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="3" name="started_by_id" nullable="true" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="true" table="professionals"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="4" name="start_at" nullable="false" remarks="" size="2000000000" type="TIMESTAMP" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="5" name="stop_at" nullable="true" remarks="" size="2000000000" type="TIMESTAMP" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="6" name="status" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="7" name="_sync" nullable="false" remarks="" size="2000000000" type="TIMESTAMP" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="protocol_subscriptions_s_pk" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="protocols" numRows="137" remarks="" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="10" id="0" name="id" nullable="false" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <child column="protocol_id" foreignKey="" implied="false" onDeleteCascade="true" table="measurements"/>
+            <child column="protocol_id" foreignKey="" implied="false" onDeleteCascade="true" table="protocol_subscriptions"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="1" name="name" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="2" name="active" nullable="false" remarks="" size="2000000000" type="BOOLEAN" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="3" name="_sync" nullable="false" remarks="" size="2000000000" type="TIMESTAMP" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="protocols_s_pk" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="question_options" numRows="84389" remarks="" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="10" id="0" name="questionnaire_key" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="1" name="question_key" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="2" name="key" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="3" name="description" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="4" name="value" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <primaryKey column="key" sequenceNumberInPK="1"/>
+         <primaryKey column="question_key" sequenceNumberInPK="2"/>
+         <primaryKey column="questionnaire_key" sequenceNumberInPK="3"/>
+         <index name="question_options_s_pk" unique="true">
+            <column ascending="true" name="key"/>
+            <column ascending="true" name="question_key"/>
+            <column ascending="true" name="questionnaire_key"/>
+         </index>
+         <index name="question_options_questionnaire_key_question_key_key_index" unique="true">
+            <column ascending="true" name="questionnaire_key"/>
+            <column ascending="true" name="question_key"/>
+            <column ascending="true" name="key"/>
+         </index>
+         <index name="sqlite_autoindex_question_options_1" unique="true">
+            <column ascending="true" name="questionnaire_key"/>
+            <column ascending="true" name="question_key"/>
+            <column ascending="true" name="key"/>
+         </index>
+      </table>
+      <table name="questionnaires" numRows="591" remarks="" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="10" id="0" name="key" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12">
+            <child column="sbg_key" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="questions"/>
+            <child column="question_option_key" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="response_values"/>
+            <child column="questionnaire_key" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="responses"/>
+            <child column="csv_key" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="scores"/>
+            <child column="sbg_key" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="scores"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="1" name="title" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="2" name="short_description" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="3" name="description" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="4" name="license" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="5" name="sbg_key" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <primaryKey column="key" sequenceNumberInPK="1"/>
+         <index name="questionnaires_s_pk" unique="true">
+            <column ascending="true" name="key"/>
+         </index>
+         <index name="sqlite_autoindex_questionnaires_1" unique="true">
+            <column ascending="true" name="key"/>
+         </index>
+      </table>
+      <table name="questions" numRows="24473" remarks="" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="10" id="0" name="questionnaire_key" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="1" name="key" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="2" name="title" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="3" name="context_free_title" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="4" name="sbg_key" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12">
+            <parent column="key" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="questionnaires"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="5" name="question_type" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <primaryKey column="key" sequenceNumberInPK="1"/>
+         <primaryKey column="questionnaire_key" sequenceNumberInPK="2"/>
+         <index name="questions_s_pk" unique="true">
+            <column ascending="true" name="key"/>
+            <column ascending="true" name="questionnaire_key"/>
+         </index>
+         <index name="questions_questionnaire_key_key_index" unique="true">
+            <column ascending="true" name="questionnaire_key"/>
+            <column ascending="true" name="key"/>
+         </index>
+         <index name="sqlite_autoindex_questions_1" unique="true">
+            <column ascending="true" name="questionnaire_key"/>
+            <column ascending="true" name="key"/>
+         </index>
+      </table>
+      <table name="respondents" numRows="833" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="10" id="0" name="id" nullable="false" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <child column="respondent_id" foreignKey="" implied="false" onDeleteCascade="true" table="responses"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="1" name="dossier_id" nullable="true" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="true" table="dossiers"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="2" name="external_identifier" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="3" name="type" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="4" name="label" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="5" name="_sync" nullable="true" remarks="" size="2000000000" type="TIMESTAMP" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="respondents_s_pk" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="response_flags" numRows="32539" remarks="" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="10" id="0" name="response_id" nullable="false" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="true" table="responses"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="1" name="key" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="2" name="value" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <primaryKey column="key" sequenceNumberInPK="1"/>
+         <primaryKey column="response_id" sequenceNumberInPK="2"/>
+         <index name="response_flags_s_pk" unique="true">
+            <column ascending="true" name="key"/>
+            <column ascending="true" name="response_id"/>
+         </index>
+         <index name="sqlite_autoindex_response_flags_1" unique="true">
+            <column ascending="true" name="response_id"/>
+            <column ascending="true" name="key"/>
+         </index>
+      </table>
+      <table name="response_scores" numRows="19721" remarks="" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="10" id="0" name="response_id" nullable="false" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="true" table="responses"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="1" name="score_key" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="2" name="score_subkey" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="3" name="data" nullable="true" remarks="" size="2000000000" type="TEXT" typeCode="12"/>
+         <primaryKey column="response_id" sequenceNumberInPK="1"/>
+         <primaryKey column="score_key" sequenceNumberInPK="2"/>
+         <primaryKey column="score_subkey" sequenceNumberInPK="3"/>
+         <index name="response_scores_s_pk" unique="true">
+            <column ascending="true" name="response_id"/>
+            <column ascending="true" name="score_key"/>
+            <column ascending="true" name="score_subkey"/>
+         </index>
+         <index name="sqlite_autoindex_response_scores_1" unique="true">
+            <column ascending="true" name="response_id"/>
+            <column ascending="true" name="score_key"/>
+            <column ascending="true" name="score_subkey"/>
+         </index>
+      </table>
+      <table name="response_textvars" numRows="15201" remarks="" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="10" id="0" name="response_id" nullable="false" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="true" table="responses"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="1" name="key" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="2" name="value" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <primaryKey column="key" sequenceNumberInPK="1"/>
+         <primaryKey column="response_id" sequenceNumberInPK="2"/>
+         <index name="response_textvars_s_pk" unique="true">
+            <column ascending="true" name="key"/>
+            <column ascending="true" name="response_id"/>
+         </index>
+         <index name="sqlite_autoindex_response_textvars_1" unique="true">
+            <column ascending="true" name="response_id"/>
+            <column ascending="true" name="key"/>
+         </index>
+      </table>
+      <table name="response_values" numRows="2267689" remarks="" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="10" id="0" name="response_id" nullable="false" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="true" table="responses"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="1" name="question_key" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="2" name="data" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="3" name="question_option_key" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12">
+            <parent column="key" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="questionnaires"/>
+         </column>
+         <primaryKey column="question_key" sequenceNumberInPK="1"/>
+         <primaryKey column="response_id" sequenceNumberInPK="2"/>
+         <index name="response_values_s_pk" unique="true">
+            <column ascending="true" name="question_key"/>
+            <column ascending="true" name="response_id"/>
+         </index>
+         <index name="sqlite_autoindex_response_values_1" unique="true">
+            <column ascending="true" name="response_id"/>
+            <column ascending="true" name="question_key"/>
+         </index>
+      </table>
+      <table name="responses" numRows="51137" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="10" id="0" name="id" nullable="false" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <child column="response_id" foreignKey="" implied="false" onDeleteCascade="true" table="response_flags"/>
+            <child column="response_id" foreignKey="" implied="false" onDeleteCascade="true" table="response_scores"/>
+            <child column="response_id" foreignKey="" implied="false" onDeleteCascade="true" table="response_textvars"/>
+            <child column="response_id" foreignKey="" implied="false" onDeleteCascade="true" table="response_values"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="1" name="dossier_id" nullable="true" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="true" table="dossiers"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="2" name="non_response_id" nullable="true" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="true" table="non_responses"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="3" name="respondent_id" nullable="true" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="true" table="respondents"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="4" name="entered_by_id" nullable="true" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="true" table="professionals"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="5" name="measurement_id" nullable="true" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="true" table="measurements"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="6" name="team_id" nullable="true" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="true" table="teams"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="7" name="questionnaire_key" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12">
+            <parent column="key" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="questionnaires"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="8" name="questionnaire_variant" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="9" name="status" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="10" name="open_from" nullable="true" remarks="" size="2000000000" type="TIMESTAMP" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="11" name="open_till" nullable="true" remarks="" size="2000000000" type="TIMESTAMP" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="12" name="started_at" nullable="true" remarks="" size="2000000000" type="TIMESTAMP" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="13" name="completed_at" nullable="true" remarks="" size="2000000000" type="TIMESTAMP" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="14" name="observation_time" nullable="true" remarks="" size="2000000000" type="TIMESTAMP" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="15" name="anonymous" nullable="true" remarks="" size="2000000000" type="BOOLEAN" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="16" name="notes" nullable="true" remarks="" size="2000000000" type="TEXT" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="17" name="_sync" nullable="true" remarks="" size="2000000000" type="TIMESTAMP" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="18" name="_sync_quby" nullable="true" remarks="" size="2000000000" type="TIMESTAMP" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="19" name="requester_id" nullable="true" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <parent column="id" foreignKey="" implied="false" onDeleteCascade="true" table="professionals"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="20" name="hide_pii_from_researchers" nullable="true" remarks="" size="2000000000" type="BOOLEAN" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="21" name="hide_values_from_professionals" nullable="true" remarks="" size="2000000000" type="BOOLEAN" typeCode="4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="responses_s_pk" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="schema_info" numRows="1" remarks="" type="TABLE">
+         <column autoUpdated="false" defaultValue="0" digits="10" id="0" name="version" nullable="false" remarks="" size="2000000000" type="INTEGER" typeCode="4"/>
+      </table>
+      <table name="scores" numRows="3918" remarks="" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="10" id="0" name="questionnaire_key" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="1" name="score_key" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="2" name="score_subkey" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="3" name="csv_key" nullable="false" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12">
+            <parent column="key" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="questionnaires"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="4" name="label" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="5" name="sbg_key" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12">
+            <parent column="key" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="questionnaires"/>
+         </column>
+         <primaryKey column="questionnaire_key" sequenceNumberInPK="1"/>
+         <primaryKey column="score_key" sequenceNumberInPK="2"/>
+         <primaryKey column="score_subkey" sequenceNumberInPK="3"/>
+         <index name="scores_s_pk" unique="true">
+            <column ascending="true" name="questionnaire_key"/>
+            <column ascending="true" name="score_key"/>
+            <column ascending="true" name="score_subkey"/>
+         </index>
+         <index name="scores_questionnaire_key_score_key_score_subkey_index" unique="true">
+            <column ascending="true" name="questionnaire_key"/>
+            <column ascending="true" name="score_key"/>
+            <column ascending="true" name="score_subkey"/>
+         </index>
+         <index name="sqlite_autoindex_scores_1" unique="true">
+            <column ascending="true" name="questionnaire_key"/>
+            <column ascending="true" name="score_key"/>
+            <column ascending="true" name="score_subkey"/>
+         </index>
+      </table>
+      <table name="teams" numRows="18" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="10" id="0" name="id" nullable="false" remarks="" size="2000000000" type="INTEGER" typeCode="4">
+            <child column="team_id" foreignKey="" implied="false" onDeleteCascade="true" table="responses"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="1" name="name" nullable="true" remarks="" size="2000000000" type="VARCHAR(255)" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="10" id="2" name="_sync" nullable="true" remarks="" size="2000000000" type="TIMESTAMP" typeCode="12"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="teams_s_pk" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+   </tables>
+</database>
