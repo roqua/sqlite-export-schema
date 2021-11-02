@@ -6,10 +6,9 @@ deploy:
     - apk update && apk add openssh-client rsync
     - eval $(ssh-agent -s)
     - mkdir ~/.ssh
-    - echo "Host *\n\tStrictHostKeyChecking no" >> ~/.ssh/config
     - echo "$SSH_PRIVATE_KEY" | ssh-add -
   script:
-    - rsync -av -e "ssh -o StrictHostKeyChecking=no" --delete ./public/ $SSH_USER@$SERVER_IP:~/public_html/$NAME/
+    - /usr/bin/rsync -av -e "ssh -o StrictHostKeyChecking=no" --delete ./public/ $SSH_USER@$SERVER_IP:~/public_html/$NAME/
   artifacts:
     paths:
       - public
