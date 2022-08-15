@@ -8,7 +8,7 @@ deploy:
     - mkdir ~/.ssh
     - echo "$SSH_PRIVATE_KEY" | ssh-add -
   script:
-    - /usr/bin/rsync -av -e "ssh -o StrictHostKeyChecking=no" --delete ./public/ $SSH_USER@$SERVER_IP:~/sqlite-export-schema/html
+    - /usr/bin/rsync -av -e "ssh -o StrictHostKeyChecking=no" --delete ./public/ $SSH_USER@$SERVER_IP:~/sqlite-export-schema/html/
   artifacts:
     paths:
       - public
