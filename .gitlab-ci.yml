@@ -1,5 +1,5 @@
-# This file is a template, and might need editing before it works on your project.
-# Full project: https://gitlab.com/pages/plain-html
+image: "registry.roqua.nl/roqua/docker-base-images:ruby-2.7-builder"
+
 deploy:
   stage: deploy
   before_script:
@@ -8,7 +8,7 @@ deploy:
     - mkdir ~/.ssh
     - echo "$SSH_PRIVATE_KEY" | ssh-add -
   script:
-    - /usr/bin/rsync -av -e "ssh -o StrictHostKeyChecking=no" --delete ./public/ $SSH_USER@$SERVER_IP:~/sqlite-export-schema/html/
+    - /usr/bin/rsync -av -e "ssh -o StrictHostKeyChecking=no" --delete ./public/ $SSH_USER@$SERVER_IP:~/sqlite-export-schema/html
   artifacts:
     paths:
       - public
