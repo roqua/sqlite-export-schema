@@ -32,7 +32,7 @@ USER java
 WORKDIR /
 
 ENV SCHEMASPY_DRIVERS=/drivers
-ENV SCHEMASPY_OUTPUT=/host/public
+ENV SCHEMASPY_OUTPUT=/host/public/sqlite-export-schema/
 
 ENTRYPOINT ["/usr/local/bin/schemaspy"]
 CMD ["-t sqlite-xerial -db /host/demo_export.db -u sqlite -cat % -s schema"]
